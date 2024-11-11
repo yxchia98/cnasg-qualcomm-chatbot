@@ -87,6 +87,8 @@ def stream_response_genie(message, history):
                     res = res.replace(end_text, '')
                     res = res.strip()
                     flags['end'] = False
+                    p.kill()
+                    break
 
             # check for metrics text prefix, we dont need it in response
             if flags['metrics']:
