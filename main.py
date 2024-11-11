@@ -24,10 +24,10 @@ import gradio as gr
 
 css = """
 .app-interface {
-    height:80vh;
-}7
+    height: 90vh;
+}
 .chat-interface {
-    height: 75vh;
+    height: 80vh;
 }
 .file-interface {
     height: 40vh;
@@ -44,21 +44,21 @@ def stream_response_genie(message, history):
             # https://docs.python.org/3/library/io.html#io.BufferedIOBase.read1
             text = p.stdout.read1().decode("utf-8")
             res += text
-            print("----------NEXT OUTPUT----------")
-            print(res, flush=True)
+            # print("----------NEXT OUTPUT----------")
+            # print(res, flush=True)
             yield res
             if not text:
                 break
         return
 
-with gr.Blocks(css=css) as demo:
+with gr.Blocks(css=css, fill_height=True) as demo:
     gr.Markdown(
     """
-    <h1 style="text-align: center;">Hosted NIM Chatbot 💻📑✨</h3>
+    <h1 style="text-align: center;">NPU Chatbot 💻📑✨</h3>
     """)
     with gr.Row(equal_height=False, elem_classes=["app-interface"]):
         with gr.Column(scale=4, elem_classes=["chat-interface"]):
             test = gr.ChatInterface(fn=stream_response_genie)
             
 
-demo.launch(server_name="0.0.0.0", ssl_verify=False, inline=False)
+demo.launch(share=False)
