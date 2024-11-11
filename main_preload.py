@@ -48,7 +48,7 @@ def stream_response_genie(message, history):
     process.stdin.write(f"{message}\n".encode())
     process.stdin.flush()
     while True:
-        c = process.stdout.read1(1).decode()
+        c = process.stdout.read1().decode(errors='ignore')
         # print(c, flush=True)
         sys.stdout.flush()
         buffer += c
@@ -82,8 +82,9 @@ def stream_response_genie(message, history):
 buffer = ""
 
 while True:
-    c = process.stdout.read1(1).decode()
+    c = process.stdout.read1().decode(errors='ignore')
     print(c, flush=True)
+    sys.stdout.flush()
     buffer += c
     # print(buffer, flush=True)
     sys.stdout.flush()
